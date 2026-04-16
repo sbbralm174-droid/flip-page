@@ -1,65 +1,197 @@
-import Image from "next/image";
+"use client";
+import React, { useCallback, useRef } from "react";
+import HTMLFlipBook from "react-pageflip";
 
-export default function Home() {
+const BookPortfolio = () => {
+  const bookRef = useRef(null);
+
+  const onOpenBook = () => {
+    if (bookRef.current) {
+      bookRef.current.pageFlip().flipNext();
+    }
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="book-wrapper">
+      <HTMLFlipBook
+        width={350}
+        height={500}
+        size="stretch"
+        minWidth={300}
+        maxWidth={950}
+        minHeight={420}
+        maxHeight={750}
+        showCover={true}
+        showPageCorners ={false}
+        useMouseEvents={true}
+        mobileScrollSupport={true}
+        flippingTime={700}
+        maxShadowOpacity={0.5}
+        className="book-canvas"
+        ref={bookRef}
+      >
+        {/* Cover Page */}
+        <div className="page cover">
+          <div className="page-content">
+            <h1>Sabbir</h1>
+            <p>I create experiences</p>
+            <button onClick={onOpenBook}>📖 Open Book</button>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Page 1 */}
+        <div className="page">
+          <div className="page-content">
+            <h2>Welcome</h2>
+            <p>This is my story — crafted with intention, every page reveals a fragment of creative philosophy.</p>
+            <p style={{ marginTop: "16px", fontStyle: "italic" }}>
+              "Design is not just what it looks like, but how it feels."
+            </p>
+          </div>
         </div>
-      </main>
+
+        {/* Page 2 */}
+        <div className="page">
+          <div className="page-content">
+            <h2>About</h2>
+            <p>I design stories, not screens. My work blends minimalism with emotional resonance. Every pixel serves a narrative.</p>
+            <p>📍 Based between imagination & craft.</p>
+          </div>
+        </div>
+
+        {/* Page 3 */}
+        <div className="page">
+          <div className="page-content">
+            <h2>About (cont.)</h2>
+            <p>I focus on emotion, not decoration. Design thinking that bridges human behavior and aesthetics.</p>
+            <p>✨ 6+ years of shaping digital identities.</p>
+          </div>
+        </div>
+
+        {/* Project Page */}
+        <div className="page">
+          <div className="page-content">
+            <h2>Project 1</h2>
+            <p><strong>Problem</strong> → No identity / scattered presence</p>
+            <p><strong>Solution</strong> → Bold branding & immersive visual system</p>
+            <p><strong>Result</strong> → 300% growth in engagement + recognition award</p>
+          </div>
+        </div>
+
+        {/* Project Details */}
+        <div className="page">
+          <div className="page-content">
+            <h2>Project 1 Details</h2>
+            <p>Deep explanation: crafted a modular design language, interactive components, and cohesive typography.</p>
+            <p>📌 Tools: Figma, Spline, GSAP.</p>
+          </div>
+        </div>
+
+        {/* Philosophy */}
+        <div className="page">
+          <div className="page-content">
+            <h2>Philosophy</h2>
+            <p>Less design. More feeling. I believe in negative space, rhythm, and tactile feedback — digital with soul.</p>
+            <p>“Perfection is achieved not when there is nothing left to add, but nothing left to take away.”</p>
+          </div>
+        </div>
+
+        {/* Contact */}
+        <div className="page">
+          <div className="page-content">
+            <h2>Contact & Connect</h2>
+            <p>📧 hello@sabbir.com</p>
+            <p>🐦 @sabbir_creates</p>
+            <p>🌐 sabbir.design</p>
+            <p style={{ marginTop: "18px" }}>Open for collaborations — let's tell your story.</p>
+          </div>
+        </div>
+
+        {/* Back Cover */}
+        <div className="page cover back-cover">
+          <div className="page-content">
+            <h2 style={{ borderLeft: "none", textAlign: "center" }}>✧ End ✧</h2>
+            <p style={{ marginTop: "20px" }}>thank you for flipping through</p>
+            <p style={{ fontSize: "0.9rem" }}>© Sabbir — every story has a new beginning</p>
+          </div>
+        </div>
+      </HTMLFlipBook>
+
+      <div className="info-badge">
+        ⚡ Click & drag corners to flip
+      </div>
+
+      <style jsx global>{`
+        body {
+          margin: 0;
+          min-height: 100vh;
+          background: linear-gradient(145deg, #1a1e2a 0%, #0c0f17 100%);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-family: 'Segoe UI', system-ui, sans-serif;
+          overflow: hidden;
+        }
+        .book-wrapper {
+          perspective: 2200px;
+          filter: drop-shadow(0 25px 35px rgba(0,0,0,0.5));
+        }
+        .page {
+          background: #fef9e8;
+          padding: 2rem;
+          box-shadow: inset 0 0 18px rgba(0,0,0,0.04);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+        .page-content {
+          width: 100%;
+        }
+        .cover {
+          background: #0a0c12 !important;
+          color: #f2e8cf;
+          text-align: center;
+          border: 1px solid rgba(230, 180, 60, 0.3);
+        }
+        .back-cover {
+          background-image: linear-gradient(45deg, #1a1e2a 2%, #0c0f17 98%) !important;
+        }
+        h1 {
+          font-size: 3rem;
+          background: linear-gradient(135deg, #e6b422, #c97e2c);
+          -webkit-background-clip: text;
+          color: transparent;
+        }
+        h2 {
+          font-size: 2rem;
+          border-left: 5px solid #e6b422;
+          padding-left: 18px;
+          margin-bottom: 1.2rem;
+          color: #2c3e2f;
+        }
+        button {
+          margin-top: 28px;
+          padding: 12px 28px;
+          background: #e6b422;
+          border: none;
+          border-radius: 40px;
+          cursor: pointer;
+          font-weight: bold;
+        }
+        .info-badge {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          background: rgba(0,0,0,0.7);
+          color: #ffdd99;
+          padding: 8px 16px;
+          border-radius: 40px;
+          font-size: 0.8rem;
+          border-left: 3px solid #e6b422;
+        }
+      `}</style>
     </div>
   );
-}
+};
+
+export default BookPortfolio;
