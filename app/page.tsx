@@ -25,9 +25,10 @@ const handleTouchEnd = (e: React.TouchEvent) => {
 
   const diff = e.changedTouches[0].clientX - startX.current;
 
-  if (diff < -30) {
+  if (diff < -130) {
     bookRef.current?.pageFlip().flipNext();
-  } else if (diff > 30) {
+    
+  } else if (diff > 130) {
     bookRef.current?.pageFlip().flipPrev();
   }
 };
@@ -48,20 +49,22 @@ const flipBookProps = {
   showCover: true,
   showPageCorners: false,
   useMouseEvents: true,
-  mobileScrollSupport: false,
+  mobileScrollSupport: true,
 
-  flippingTime: 700,
+  flippingTime: 750,
   maxShadowOpacity: 0.5,
 
   startPage: 0,
   drawShadow: true,
-  usePortrait: true,
+  usePortrait: isMobile,
   style: {},
 };
 
 
   return (
-    <div className="book-wrapper">
+    <div 
+    className="book-wrapper"
+    >
       <HTMLFlipBook {...(flipBookProps as any)} ref={bookRef}>
         {/* Cover Page */}
         <div className="page cover">
@@ -156,9 +159,9 @@ const flipBookProps = {
 
       <style jsx global>{`
       html, body {
-  touch-action: none;
-  overflow: hidden;
-},
+          touch-action: none;
+          overflow: hidden;
+        },
         body {
           margin: 0;
           min-height: 100vh;
