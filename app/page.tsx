@@ -49,7 +49,7 @@ const flipBookProps = {
   showCover: true,
   showPageCorners: false,
   useMouseEvents: true,
-  mobileScrollSupport: true,
+  mobileScrollSupport: false,
 
   flippingTime: 750,
   maxShadowOpacity: 0.5,
