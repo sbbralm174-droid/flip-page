@@ -1,9 +1,9 @@
 "use client";
-import React, { useCallback, useRef } from "react";
-import HTMLFlipBook from "react-pageflip";
+import React, { useRef } from "react";
+import HTMLFlipBook  from "react-pageflip";
 
 const BookPortfolio = () => {
-  const bookRef = useRef(null);
+  const bookRef = useRef<any>(null);
 
   const onOpenBook = () => {
     if (bookRef.current) {
@@ -11,25 +11,58 @@ const BookPortfolio = () => {
     }
   };
 
+const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+const startX = useRef(0);
+
+const handleTouchStart = (e: React.TouchEvent) => {
+  if (!isMobile) return;
+
+  startX.current = e.touches[0].clientX;
+};
+
+const handleTouchEnd = (e: React.TouchEvent) => {
+  if (!isMobile) return;
+
+  const diff = e.changedTouches[0].clientX - startX.current;
+
+  if (diff < -30) {
+    bookRef.current?.pageFlip().flipNext();
+  } else if (diff > 30) {
+    bookRef.current?.pageFlip().flipPrev();
+  }
+};
+
+
+
+
+
+const flipBookProps = {
+  width: 350,
+  height: 500,
+  size: "stretch" as const,
+  minWidth: 300,
+  maxWidth: 950,
+  minHeight: 420,
+  maxHeight: 750,
+
+  showCover: true,
+  showPageCorners: false,
+  useMouseEvents: true,
+  mobileScrollSupport: false,
+
+  flippingTime: 700,
+  maxShadowOpacity: 0.5,
+
+  startPage: 0,
+  drawShadow: true,
+  usePortrait: true,
+  style: {},
+};
+
+
   return (
     <div className="book-wrapper">
-      <HTMLFlipBook
-        width={350}
-        height={500}
-        size="stretch"
-        minWidth={300}
-        maxWidth={950}
-        minHeight={420}
-        maxHeight={750}
-        showCover={true}
-        showPageCorners ={false}
-        useMouseEvents={true}
-        mobileScrollSupport={true}
-        flippingTime={700}
-        maxShadowOpacity={0.5}
-        className="book-canvas"
-        ref={bookRef}
-      >
+      <HTMLFlipBook {...(flipBookProps as any)} ref={bookRef}>
         {/* Cover Page */}
         <div className="page cover">
           <div className="page-content">
@@ -122,6 +155,10 @@ const BookPortfolio = () => {
       </div>
 
       <style jsx global>{`
+      html, body {
+  touch-action: none;
+  overflow: hidden;
+},
         body {
           margin: 0;
           min-height: 100vh;
@@ -143,6 +180,7 @@ const BookPortfolio = () => {
           display: flex;
           flex-direction: column;
           justify-content: center;
+          touch-action: none;
         }
         .page-content {
           width: 100%;
